@@ -10,13 +10,59 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Post {
-  id    String @id @default(uuid())
-  title String
-  text  String
-
-  // To return `Date`s intact through the API we need to add data transformers
-  // https://trpc.io/docs/data-transformers
+model Creator {
+  id        String @id @default(uuid())
+  survey    Survey[]
+  name      String
+  email     String @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
+}
+
+model Survey {
+  id                   String @id @default(uuid())
+  creator              Creator @relation(fields: [creator_id], references: [id])
+  creator_id           String
+  stage                STAGES? @default(OPEN)
+  distributedPlatform  PLATFORM
+  npsQuestion          String
+  contentQuestion      String
+  feedbackQuestion     String
+  response             Response[]
+  npsScore             String?
+  promoterPercent      Float?
+  passivePercent       Float?
+  detractorPercent     Float?
+  contentScore         String?
+  npsDescription       String?
+  contentDescription   String?
+  accessCode           String?
+  endDate              DateTime
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @default(now()) @updatedAt
+}
+
+model Response {
+  id                String @id @default(uuid())
+  survey            Survey @relation(fields: [survey_id], references: [id])
+  survey_id         String
+  npsResponse       Int
+  contentResponse   Int
+  feedbackResponse  String
+  sentimentAnalysis String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @default(now()) @updatedAt
+}
+
+enum STAGES {
+  OPEN
+  IN_REVIEW
+  COMPLETED
+}
+
+enum PLATFORM {
+  YOUTUBE
+  PATREON
+  TIKTOK
+  INSTAGRAM
 }

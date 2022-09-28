@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Survey" ALTER COLUMN "stage" DROP NOT NULL,
+ALTER COLUMN "stage" SET DEFAULT 'OPEN';

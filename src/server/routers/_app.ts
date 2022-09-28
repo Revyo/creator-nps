@@ -3,10 +3,14 @@
  */
 import { t } from '../trpc';
 import { healthRouter } from './health';
-import { postRouter } from './post';
+import { surveyRouter } from './survey';
+import { creatorRouter } from './creator';
+import { responseRouter } from './response';
 
 export const appRouter = t.router({
-  post: postRouter,
+  survey: surveyRouter,
+  creator: creatorRouter,
+  response: responseRouter,
   health: healthRouter,
 });
 
