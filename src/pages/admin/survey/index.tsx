@@ -1,4 +1,3 @@
-import NextError from 'next/error';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NextPageWithLayout } from '~/pages/_app';
 import { trpc } from '~/utils/trpc';

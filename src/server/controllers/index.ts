@@ -4,3 +4,6 @@ export * from './GetCreatorByID';
 export * from './CreateCreator';
 export * from './CalculateAndUpdateNPS';
 export * from './CreateResponse';
+export * from './GetResponseBySurveyID';
+export * from './GetCreators';
+export * from './GetSurveysByCreatorID';

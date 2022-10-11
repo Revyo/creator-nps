@@ -1,18 +1,21 @@
-import NextError from 'next/error';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { NextPageWithLayout } from '~/pages/_app';
 import { trpc } from '~/utils/trpc';
-import { Creator } from '@prisma/client';
 import { Protected } from '~/components/Protected';
+
+interface InputValues {
+  name: string;
+  email: string;
+}
 
 const CreatorIndexPage: NextPageWithLayout = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Creator>();
+  } = useForm<InputValues>();
   const addCreator = trpc.creator.add.useMutation();
-  const onSubmit: SubmitHandler<Creator> = (data) => {
+  const onSubmit: SubmitHandler<InputValues> = (data) => {
     addCreator.mutateAsync(data);
   };
 

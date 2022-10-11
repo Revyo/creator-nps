@@ -1,13 +1,11 @@
 import NextError from 'next/error';
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { Protected } from '~/components/Protected';
 import { NextPageWithLayout } from '~/pages/_app';
 import { trpc } from '~/utils/trpc';
 
 const CreatorViewPage: NextPageWithLayout = () => {
-  // TODO: check that creator email matches the logged in user email
-  const id = useRouter().query.id as string;
-  const creatorQuery = trpc.creator.byId.useQuery({ id });
+  const creatorQuery = trpc.creator.GetAll.useQuery();
 
   if (creatorQuery.error) {
     return (
@@ -23,17 +21,20 @@ const CreatorViewPage: NextPageWithLayout = () => {
   }
   const { data } = creatorQuery;
   return (
-    <Protected isAdminRequired={false}>
+    <Protected isAdminRequired={true}>
       <>
-        <h1>{data.name}</h1>
-        <em>Created {data.createdAt.toLocaleDateString('en-us')}</em>
+        <h1>All Creators</h1>
 
-        <p>{data.email}</p>
-
-        {/* TODO: Table of surveys, click one to go to that page. Survey page will be the report */}
-
-        <h2>Raw data:</h2>
-        <pre>{JSON.stringify(data, null, 4)}</pre>
+        {data.map((creator) => {
+          return (
+            <div key={creator.id}>
+              <Link href={`/admin/creator/${creator.id}`}>
+                <p>{creator.name}</p>
+              </Link>
+              <p>{creator.email}</p>
+            </div>
+          );
+        })}
       </>
     </Protected>
   );

@@ -23,6 +23,7 @@ const SurveyViewPage: NextPageWithLayout = () => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<InputValues>();
   const onSubmit: SubmitHandler<InputValues> = (data) => {
@@ -34,6 +35,7 @@ const SurveyViewPage: NextPageWithLayout = () => {
       npsResponse,
       contentResponse,
     });
+    reset();
   };
 
   if (surveyQuery.error) {
