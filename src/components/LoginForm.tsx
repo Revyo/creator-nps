@@ -1,12 +1,14 @@
+import { useContext } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Magic } from 'magic-sdk';
 import { ErrorSpan } from './ErrorSpan';
+import { magicContext } from '~/contexts';
 
 interface InputType {
   email: string;
 }
 
 export const LoginForm = () => {
+  const magic = useContext<any>(magicContext);
   const {
     register,
     handleSubmit,
@@ -14,7 +16,6 @@ export const LoginForm = () => {
   } = useForm<InputType>();
 
   const onSubmit: SubmitHandler<InputType> = (data) => {
-    const magic = new Magic('pk_live_290C03F84D93CD3F');
     try {
       magic.auth.loginWithMagicLink({ email: data.email, showUI: true });
     } catch (error) {

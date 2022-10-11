@@ -1,6 +1,6 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/router';
-import { Magic } from 'magic-sdk';
+import { magicContext } from '~/contexts';
 
 type DefaultLayoutProps = { children: ReactNode; isAdminRequired: boolean };
 
@@ -9,19 +9,23 @@ export const Protected = ({
   isAdminRequired,
 }: DefaultLayoutProps) => {
   const router = useRouter();
+  const { user } = useContext<any>(magicContext);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (!user) {
+      return;
+    }
     setLoading(true);
-    const magic = new Magic('pk_live_290C03F84D93CD3F');
     async function checkUserLoggedIn() {
       try {
-        const loggedIn = await magic.user.isLoggedIn();
+        const loggedIn = await user.isLoggedIn();
+        console.log('LOGGED IN PROTECTED', loggedIn);
         if (!loggedIn && router.pathname !== '/login') {
           router.replace('/');
           setLoading(false);
         } else if (isAdminRequired) {
-          const userData = await magic.user.getMetadata();
+          const userData = await user.getMetadata();
           const isAdmin = userData.email === 'jess@revyo.co';
           if (!isAdmin) {
             router.back();
@@ -33,6 +37,6 @@ export const Protected = ({
       }
     }
     checkUserLoggedIn();
-  }, [router.pathname]);
+  }, [router.pathname, user]);
   return <>{loading ? <p>loading</p> : children}</>;
 };

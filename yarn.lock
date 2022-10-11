@@ -719,6 +719,11 @@
   resolved "https://registry.yarnpkg.com/@magic-sdk/types/-/types-8.1.0.tgz#2198a26646d21c52243049341661d5fe312fc353"
   integrity sha512-Y+9q7UUwfofWzT5ke3F4AbcLsBVnhrpmcJilB4oHTvnYkFbp948x9AtJWLt/kPdrAcXByHE1g62aIOMD2nPGFw==
 
+"@magic-sdk/types@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@magic-sdk/types/-/types-9.0.0.tgz#b978079d529d49c17efc1b8259e6adb27215a995"
+  integrity sha512-uDQU8uqjAqqGeH02reabPuDVS7Hf7Sk+IaBCsZap1Qzk6MkeXrAx82+sWcYE4J8aD6kVukDoveOiAfjyWASEVA==
+
 "@next/env@12.3.0":
   version "12.3.0"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.3.0.tgz#85f971fdc668cc312342761057c59cb8ab1abadf"

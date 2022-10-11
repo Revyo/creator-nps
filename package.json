@@ -49,6 +49,7 @@
     "zod": "^3.0.0"
   },
   "devDependencies": {
+    "@magic-sdk/types": "^9.0.0",
     "@playwright/test": "^1.19.2",
     "@tanstack/react-query-devtools": "^4.0.10",
     "@types/jest": "^27.0.1",
